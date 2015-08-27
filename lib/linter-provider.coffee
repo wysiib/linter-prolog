@@ -20,7 +20,7 @@ module.exports = class LinterProvider
 
   getCommandWithFile = (file) -> "#{getCommand()} #{file}"
 
-  parse = (line,cwd) ->
+  parse = (line, cwd) ->
     if line.match swi_regex
       [type, file, line, message] = line.match(swi_regex)[1..4]
       return [file, line, 0, type, message]
@@ -28,8 +28,8 @@ module.exports = class LinterProvider
     if lines[0].endsWith("error")
       message = lines[1].substring(2)
       file = lines[lines.length-2]
-      file = file.substring(file.indexOf("'")+1,file.length-1)
-      file = file.replace(cwd,"")
+      file = file.substring(file.indexOf("'")+1, file.length-1)
+      file = file.replace(cwd, "")
       line = lines[2].substring(9)
       return [file, line, 0, "Error", message]
 
@@ -47,7 +47,7 @@ module.exports = class LinterProvider
         toReturn = []
         for line in data
           console.log "Prolog Linter Provider: #{line}"
-          parse_result = parse(line,cwd)
+          parse_result = parse(line, cwd)
           if(parse_result?)
             [file, line, column, type, message] = parse_result
             toReturn.push(
