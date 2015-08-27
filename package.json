@@ -2,19 +2,18 @@
   "name": "linter-prolog",
   "activationCommands": [],
   "main": "./lib/linter-prolog",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Lint Prolog code using swipl or sicstus",
-  "repository": "https://github.com/wysiib/linter-prolog",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/wysiib/linter-prolog.git"
   },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wysiib/linter-prolog/issues"
   },
   "homepage": "https://github.com/wysiib/linter-prolog",
-    "devDependencies": {
+  "devDependencies": {
     "coffeelint": "^1.10.1"
   },
   "engines": {
