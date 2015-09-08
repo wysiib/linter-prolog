@@ -10,7 +10,8 @@ $ apm install linter-prolog
 ```
 from the command line or install linter-prolog using the preferences.
 
-You need to install [language-prolog](https://atom.io/packages/language-prolog) by Jakehp as well.
+The two packages [language-prolog](https://atom.io/packages/language-prolog) by Jakehp and Linter will be installed automatically.
+You do not need to worry about dependencies.
 
 ## Contributing
 Feel free to provide feature requests or bug reports using the link above.

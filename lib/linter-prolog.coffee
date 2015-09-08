@@ -6,10 +6,7 @@ module.exports = LinterProlog =
       type: 'string'
       default: 'swipl'
   activate: ->
-    atom.notification.addError(
-      'Prolog Language Package not found.',
-      {detail: 'Please install the `language-prolog` package in your Settings view.'}
-    ) unless atom.packages.getLoadedPackages 'language-prolog'
+    require("atom-package-dependencies").install();
 
   provideLinter: ->
     LinterProvider = require './linter-provider'
