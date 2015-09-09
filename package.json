@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/wysiib/linter-prolog",
   "dependencies": {
-    "atom-linter": "^3.0.0",
+    "atom-linter": "latest",
     "atom-package-deps": "latest"
   },
   "devDependencies": {
