@@ -6,7 +6,7 @@ module.exports = LinterProlog =
       type: 'string'
       default: 'swipl'
   activate: ->
-    require("atom-package-dependencies").install()
+    require("atom-package-deps").install("linter-prolog")
 
   provideLinter: ->
     LinterProvider = require './linter-provider'
