@@ -30,7 +30,6 @@ module.exports = class LinterProvider
       message = lines[1].substring(2)
       file = lines[lines.length-2]
       file = file.substring(file.indexOf("'")+1, file.length-1)
-      file = file.replace(cwd, "")
       line = lines[2].substring(9)
       return [file, line, 0, "Error", message]
 
