@@ -2,7 +2,7 @@
   "name": "linter-prolog",
   "activationCommands": [],
   "main": "./lib/linter-prolog",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lint Prolog code using swipl or sicstus",
   "repository": {
     "type": "git",
