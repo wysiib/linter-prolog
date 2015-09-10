@@ -7,6 +7,7 @@ module.exports = class LinterProvider
     \s+     #A space.
     (\S+):  #The file with issue.
     (\d+):  #The line number with issue.
+    (\d+):  #The column number with issue.
     \s+     #A space.
     (.*)    #A message explaining the issue at hand.
   ///
@@ -22,8 +23,8 @@ module.exports = class LinterProvider
 
   parse = (line, cwd) ->
     if line.match swi_regex
-      [type, file, line, message] = line.match(swi_regex)[1..4]
-      return [file, line, 0, type, message]
+      [type, file, line, column, message] = line.match(swi_regex)[1..5]
+      return [file, line, column, type, message]
     lines = line.split("\n")
     if lines[0].endsWith("error")
       message = lines[1].substring(2)
@@ -53,7 +54,7 @@ module.exports = class LinterProvider
             toReturn.push(
               type: type,
               text: message,
-              filePath: path.join(cwd, file).normalize()
+              filePath: file.normalize()
               range: [[line - 1, column - 1], [line - 1, column - 1]]
             )
         Resolve toReturn
