@@ -2,7 +2,7 @@
   "name": "linter-prolog",
   "activationCommands": [],
   "main": "./lib/linter-prolog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lint Prolog code using swipl or sicstus",
   "repository": {
     "type": "git",
@@ -21,8 +21,8 @@
     "coffeelint": "^1.10.1"
   },
   "package-deps": [
-      "linter",
-      "language-prolog"
+    "linter",
+    "language-prolog"
   ],
   "engines": {
     "atom": ">1.0.0"
