@@ -1,9 +1,8 @@
 language: objective-c
 
-addons:
-  apt:
-    packages:
-    - swi-prolog
+before_install:
+  - brew update
+  - brew outdated swi-prolog || brew upgrade swi-prolog
 
 notifications:
   email:
