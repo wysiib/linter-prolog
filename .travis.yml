@@ -1,5 +1,10 @@
 language: objective-c
 
+addons:
+  apt:
+    packages:
+    - swi-prolog
+
 notifications:
   email:
     on_success: change
