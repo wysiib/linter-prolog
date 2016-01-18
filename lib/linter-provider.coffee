@@ -21,7 +21,7 @@ module.exports = class LinterProvider
 
   getCommandWithFile = (file) -> "#{getCommand()} #{file}"
 
-  parse = (line, cwd) ->
+  parse = (line) ->
     if line.match swi_regex
       [type, file, line, column, message] = line.match(swi_regex)[1..5]
       return [file, line, column, type, message]
@@ -47,7 +47,7 @@ module.exports = class LinterProvider
         toReturn = []
         for line in data
           console.log "Prolog Linter Provider: #{line}"
-          parse_result = parse(line, cwd)
+          parse_result = parse(line)
           if(parse_result?)
             [file, line, column, type, message] = parse_result
             toReturn.push(
