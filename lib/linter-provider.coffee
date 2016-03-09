@@ -62,6 +62,6 @@ module.exports = class LinterProvider
               type: parse_result.type,
               text: parse_result.text,
               filePath: TextEditor.getPath()
-              range: [[line-1,col-1],[line-1,col-1]]
+              range: [[line-1, col-1], [line-1, col-1]]
             )
         Resolve toReturn
