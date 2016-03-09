@@ -47,4 +47,33 @@ describe('The prolog-linter for AtomLinter', () => {
       });
     });
   });
+
+  it('find errors in filepath with whitespace', () => {
+    waitsForPromise(() => {
+      return atom.workspace.open(__dirname + '/test_files/file space.pl').then(editor => {
+        return lint(editor).then(messages => {
+          expect(messages.length).toEqual(1);
+        });
+      });
+    });
+  });
+
+  it('finds singleton variable warnings', () => {
+    waitsForPromise(() => {
+      return atom.workspace.open(__dirname + '/test_files/singleton_warning.pl').then(editor => {
+        return lint(editor).then(messages => {
+          expect(messages.length).toEqual(1);
+          expect(messages[0].type).toBeDefined();
+          expect(messages[0].type).toEqual('Warning');
+          expect(messages[0].text).toBeDefined();
+          expect(messages[0].text).toEqual('Singleton variables: [X]');
+          expect(messages[0].filePath).toBeDefined();
+          expect(messages[0].filePath).toMatch(/.+singleton_warning\.pl$/);
+          expect(messages[0].range).toBeDefined();
+          expect(messages[0].range.length).toEqual(2);
+          expect(messages[0].range).toEqual([[0, 0], [0, 0]]);
+        });
+      });
+    });
+  });
 });
