@@ -1,3 +1,6 @@
+## 0.2.0
+* switch to linter v2
+
 ## 0.1.3
 * fix errors with paths containing space (thanks @gjacobrobertson)
 * improve error reporting of SWI Prolog for error messages without line numbers
