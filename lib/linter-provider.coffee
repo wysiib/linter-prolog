@@ -12,14 +12,12 @@ module.exports = class LinterProvider
     (.*)    #A message explaining the issue at hand.
   ///
 
-  getCommand = ->
+  getParameters = (file) ->
     plpath = atom.config.get('linter-prolog.compilerPath', [])
     if plpath.indexOf("swi") > -1
-      "#{atom.config.get 'linter-prolog.compilerPath'} -g \"halt.\" -l"
+      return ['-g', "halt.", '-l', "#{file}"]
     else
-      "#{atom.config.get 'linter-prolog.compilerPath'} --goal \"halt.\" -l"
-
-  getCommandWithFile = (file) -> "#{getCommand()} '#{file}'"
+      return ['--goal', "halt.", '-l',  "#{file}"]
 
   parse = (line) ->
     match = line.match swi_regex
@@ -42,28 +40,28 @@ module.exports = class LinterProvider
 
 
   lint: (TextEditor) ->
+    helpers = require('atom-linter')
     new Promise (Resolve) ->
-      file = path.basename TextEditor.getPath()
-      cwd = path.dirname TextEditor.getPath()
+      file = TextEditor.getPath()
       data = []
-      command = getCommandWithFile file
+      command = atom.config.get('linter-prolog.compilerPath', [])
       console.log "Linter Command: #{command}"
-      process = child_process.exec command, {cwd: cwd}
-      process.stderr.on 'data', (d) -> data.push d.toString()
-      process.on 'close', ->
+      parameters = getParameters(file)
+      console.log "Linter Parameters: #{parameters}"
+
+      return helpers.exec(command, parameters, {stream: "both" }).then (output) ->
         toReturn = []
-        for line in data
-          console.log "Prolog Linter Provider: #{line}"
-          parse_result = parse(line)
-          if(parse_result?)
-            line = parse_result.line
-            col = parse_result.column
-            toReturn.push(
-              severity: parse_result.type.toLowerCase()
-              excerpt: parse_result.text
-              location: {
-                file: TextEditor.getPath()
-                position: [[line-1, col-1], [line-1, col-1]]
-              }
-            )
-        Resolve toReturn
+        console.log "Prolog Linter Provider: #{output.stderr}"
+        parse_result = parse(output.stderr)
+        if(parse_result?)
+          line = parse_result.line
+          col = parse_result.column
+          toReturn.push(
+            severity: parse_result.type.toLowerCase()
+            excerpt: parse_result.text
+            location: {
+              file: TextEditor.getPath()
+              position: [[line-1, col-1], [line-1, col-1]]
+            }
+         )
+         Resolve toReturn
