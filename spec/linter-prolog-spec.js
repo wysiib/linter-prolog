@@ -15,7 +15,7 @@ describe('The prolog-linter for AtomLinter', () => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1);
           expect(messages[0].type).toBeDefined();
-          expect(messages[0].type).toEqual('ERROR');
+          expect(messages[0].type).toEqual('error');
           expect(messages[0].text).toBeDefined();
           expect(messages[0].text).toEqual('Syntax error: Unexpected end of file');
           expect(messages[0].filePath).toBeDefined();
@@ -64,7 +64,7 @@ describe('The prolog-linter for AtomLinter', () => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1);
           expect(messages[0].type).toBeDefined();
-          expect(messages[0].type).toEqual('Warning');
+          expect(messages[0].type).toEqual('warning');
           expect(messages[0].text).toBeDefined();
           expect(messages[0].text).toEqual('Singleton variables: [X]');
           expect(messages[0].filePath).toBeDefined();

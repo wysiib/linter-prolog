@@ -59,9 +59,11 @@ module.exports = class LinterProvider
             line = parse_result.line
             col = parse_result.column
             toReturn.push(
-              type: parse_result.type,
-              text: parse_result.text,
-              filePath: TextEditor.getPath()
-              range: [[line-1, col-1], [line-1, col-1]]
+              severity: parse_result.type.toLowerCase()
+              excerpt: parse_result.text
+              location: {
+                file: TextEditor.getPath()
+                position: [[line-1, col-1], [line-1, col-1]]
+              }
             )
         Resolve toReturn

@@ -15,5 +15,6 @@ module.exports = LinterProlog =
       grammarScopes: ['source.prolog']
       scope: 'file'
       lint: provider.lint
-      lintOnFly: false
+      lintsOnChange: false
+      name: 'SWI / SICStus Prolog'
     }
