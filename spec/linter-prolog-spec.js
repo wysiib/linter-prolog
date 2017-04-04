@@ -14,15 +14,15 @@ describe('The prolog-linter for AtomLinter', () => {
       return atom.workspace.open(__dirname + '/test_files/simple_syntax_error.pl').then(editor => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1);
-          expect(messages[0].type).toBeDefined();
-          expect(messages[0].type).toEqual('error');
-          expect(messages[0].text).toBeDefined();
-          expect(messages[0].text).toEqual('Syntax error: Unexpected end of file');
-          expect(messages[0].filePath).toBeDefined();
-          expect(messages[0].filePath).toMatch(/.+simple_syntax_error\.pl$/);
-          expect(messages[0].range).toBeDefined();
-          expect(messages[0].range.length).toEqual(2);
-          expect(messages[0].range).toEqual([[0, 7], [0, 7]]);
+          expect(messages[0].severity).toBeDefined();
+          expect(messages[0].severity).toEqual('error');
+          expect(messages[0].excerpt).toBeDefined();
+          expect(messages[0].excerpt).toEqual('Syntax error: Unexpected end of file');
+          expect(messages[0].location.file).toBeDefined();
+          expect(messages[0].location.file).toMatch(/.+simple_syntax_error\.pl$/);
+          expect(messages[0].location.position).toBeDefined();
+          expect(messages[0].location.position.length).toEqual(2);
+          expect(messages[0].location.position).toEqual([[0, 7], [0, 7]]);
         });
       });
     });
@@ -63,15 +63,15 @@ describe('The prolog-linter for AtomLinter', () => {
       return atom.workspace.open(__dirname + '/test_files/singleton_warning.pl').then(editor => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1);
-          expect(messages[0].type).toBeDefined();
-          expect(messages[0].type).toEqual('warning');
-          expect(messages[0].text).toBeDefined();
-          expect(messages[0].text).toEqual('Singleton variables: [X]');
-          expect(messages[0].filePath).toBeDefined();
-          expect(messages[0].filePath).toMatch(/.+singleton_warning\.pl$/);
-          expect(messages[0].range).toBeDefined();
-          expect(messages[0].range.length).toEqual(2);
-          expect(messages[0].range).toEqual([[0, 0], [0, 0]]);
+          expect(messages[0].severity).toBeDefined();
+          expect(messages[0].severity).toEqual('warning');
+          expect(messages[0].excerpt).toBeDefined();
+          expect(messages[0].excerpt).toEqual('Singleton variables: [X]');
+          expect(messages[0].location.file).toBeDefined();
+          expect(messages[0].location.file).toMatch(/.+singleton_warning\.pl$/);
+          expect(messages[0].location.position).toBeDefined();
+          expect(messages[0].location.position.length).toEqual(2);
+          expect(messages[0].location.position).toEqual([[0, 0], [0, 0]]);
         });
       });
     });
