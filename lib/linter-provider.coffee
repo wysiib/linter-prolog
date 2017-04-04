@@ -49,7 +49,7 @@ module.exports = class LinterProvider
       parameters = getParameters(file)
       console.log "Linter Parameters: #{parameters}"
 
-      return helpers.exec(command, parameters, {stream: "both" }).then (output) ->
+      return helpers.exec(command, parameters, {stream: "both"}).then (output) ->
         toReturn = []
         console.log "Prolog Linter Provider: #{output.stderr}"
         parse_result = parse(output.stderr)
