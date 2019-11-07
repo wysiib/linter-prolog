@@ -20,24 +20,32 @@ module.exports = class LinterProvider
     else
       return ['--goal', "halt.", '-l',  "#{file}"]
 
-  parse = (line) ->
-    match = line.match swi_regex
-    if match
-      return {
-        type: match[1]
-        line: match[2]
-        column: match[4] ? 1
-        text: match[5]
-      }
+  parse = (output) ->
+    results = []
+    while true
+      match = output.match swi_regex
+      if match
+        results.push {
+          type: match[1]
+          line: match[2]
+          column: match[4] ? 1
+          text: match[5]
+        }
+        output = output.substring(match.index + match[0].length)
+        continue
 
-    lines = line.split("\n")
-    if lines[0].endsWith("error")
-      return {
-        type: "Error"
-        line: lines[2].substring(9)
-        column: 1
-        text: lines[1].substring(2)
-      }
+      lines = output.split("\n")
+      if lines[0].endsWith("error")
+        results.push {
+          type: "Error"
+          line: lines[2].substring(9)
+          column: 1
+          text: lines[1].substring(2)
+        }
+        output = lines.slice(3).join("\n")
+        continue
+
+      return results
 
 
   lint: (TextEditor) ->
@@ -53,8 +61,8 @@ module.exports = class LinterProvider
       return helpers.exec(command, parameters, {stream: "both"}).then (output) ->
         toReturn = []
         console.log "Prolog Linter Provider: #{output.stderr}"
-        parse_result = parse(output.stderr)
-        if(parse_result?)
+        parse_results = parse(output.stderr)
+        for parse_result in parse_results
           line = parse_result.line
           col = parse_result.column
           toReturn.push(
@@ -64,5 +72,5 @@ module.exports = class LinterProvider
               file: TextEditor.getPath()
               position: [[line-1, col-1], [line-1, col-1]]
             }
-         )
-         Resolve toReturn
+          )
+        Resolve toReturn
