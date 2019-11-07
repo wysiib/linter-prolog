@@ -5,6 +5,7 @@ module.exports = class LinterProvider
   swi_regex = ///
     (\w+):  #The type of issue being reported.
     \s+     #A space.
+    (?:\w:)? #The drive letter of the file (Windows-specific).
     [^\:]+:  #The file with issue.
     (\d+):  #The line number with issue.
     ((\d+):)?  #The column number with issue.
