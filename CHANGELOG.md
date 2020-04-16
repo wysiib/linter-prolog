@@ -1,3 +1,7 @@
+## 0.2.1
+* expand test builds to linux
+* fix windows file paths (thanks @jmanuel1)
+
 ## 0.2.0
 * switch to linter v2
 
