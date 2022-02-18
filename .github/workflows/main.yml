@@ -15,20 +15,15 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  InstallSwiPl:
-    runs-on: [ubuntu-latest]
-    steps:
-    - name: Install SWI-Prolog
-      run: sudo apt-get install -y swi-prolog
-    
   Test:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
         channel: [stable, beta]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install SWI-Prolog
+      run: sudo apt-get install -y swi-prolog
     - uses: atom-community/action-setup-atom@v1
       with:
         channel: ${{ matrix.channel }}
