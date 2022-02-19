@@ -76,4 +76,14 @@ describe('The prolog-linter for AtomLinter', () => {
       });
     });
   });
+
+  it('finds multiple diagnostics in a file with a warning and an error', () => {
+    waitsForPromise(() => {
+      return atom.workspace.open(__dirname + '/test_files/multiple_diagnostics.pl').then(editor => {
+        return lint(editor).then(messages => {
+          expect(messages.length).toBeGreaterThan(1);
+        });
+      });
+    });
+  });
 });
