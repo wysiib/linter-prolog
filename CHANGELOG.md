@@ -1,3 +1,6 @@
+## 0.3.0
+* support multiple diagnostic messages (thanks @jmanuel1)
+
 ## 0.2.1
 * expand test builds to linux
 * fix windows file paths (thanks @jmanuel1)
